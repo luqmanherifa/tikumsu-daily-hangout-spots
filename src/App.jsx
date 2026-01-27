@@ -8,8 +8,8 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import UserDashboardPage from "./pages/dashboard/UserDashboardPage";
 import AdminDashboardPage from "./pages/dashboard/AdminDashboardPage";
 
-import ProtectedRoute from "./pages/auth/ProtectedRoute";
-import AdminRoute from "./pages/auth/AdminRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminRoute from "./routes/AdminRoute";
 
 export default function App() {
   return (
