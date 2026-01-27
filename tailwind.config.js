@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        softOlive: "#606C38", // Young Olive Green
-        deepOlive: "#283618", // Dark Earthy Green
-        warmCream: "#FEFAE0", // Bright Warm Off-white
-        caramelTan: "#DDA15E", // Light Warm Brown
-        rusticBrown: "#BC6C25", // Deep Warm Brown
+        softolive: "#606C38", // Young Olive Green
+        deepolive: "#283618", // Dark Earthy Green
+        warmcream: "#FEFAE0", // Bright Warm Off-white
+        carameltan: "#DDA15E", // Light Warm Brown
+        rusticbrown: "#BC6C25", // Deep Warm Brown
       },
       fontFamily: {
         heading: ["Archivo", "sans-serif"],

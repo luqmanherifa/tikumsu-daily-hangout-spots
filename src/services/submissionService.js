@@ -2,6 +2,8 @@ import {
   collection,
   addDoc,
   getDocs,
+  query,
+  where,
   doc,
   setDoc,
   updateDoc,
@@ -9,10 +11,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
-export async function submitSpot(data, userId) {
+export async function submitSpot(data, user) {
   return addDoc(collection(db, "spotSubmissions"), {
     ...data,
-    createdBy: userId,
+    createdBy: user.uid,
+    createdByEmail: user.email ?? null,
     createdAt: serverTimestamp(),
     status: "pending",
   });
@@ -20,6 +23,16 @@ export async function submitSpot(data, userId) {
 
 export async function fetchSubmissions() {
   const snap = await getDocs(collection(db, "spotSubmissions"));
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+}
+
+export async function fetchUserSubmissions(userId) {
+  const q = query(
+    collection(db, "spotSubmissions"),
+    where("createdBy", "==", userId),
+  );
+
+  const snap = await getDocs(q);
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
 
