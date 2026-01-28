@@ -34,25 +34,25 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-warmcream flex items-center justify-center px-5 py-12">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="text-center mb-10">
-          <h1 className="font-heading font-black text-4xl text-deepolive mb-3 tracking-tight max-sm:text-3xl">
-            Halo lagi! 👋
+        <div className="text-center mb-8">
+          <h1 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
+            Masuk ke Hangout
           </h1>
-          <p className="font-body text-base text-slate-600 tracking-wide max-sm:text-sm">
-            Yuk masuk dulu buat explore spot favoritmu
+          <p className="font-body text-sm text-slate-600 tracking-wide">
+            Akses dashboard dan kelola spot favoritmu
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 border-2 border-slate-200 max-sm:p-6">
-          <form onSubmit={handleLogin} className="space-y-5">
+        <div className="bg-white rounded-xl p-6 border border-slate-200 max-sm:p-5">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+              <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
                 Email
               </label>
               <input
-                className="w-full border-2 border-slate-200 px-4 py-3.5 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
+                className="w-full border border-slate-300 px-4 py-2.5 rounded-lg font-body text-sm focus:outline-none focus:border-softolive transition-colors bg-white tracking-wide placeholder:text-slate-400"
                 placeholder="nama@email.com"
                 type="email"
                 value={email}
@@ -62,11 +62,11 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+              <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
                 Password
               </label>
               <input
-                className="w-full border-2 border-slate-200 px-4 py-3.5 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
+                className="w-full border border-slate-300 px-4 py-2.5 rounded-lg font-body text-sm focus:outline-none focus:border-softolive transition-colors bg-white tracking-wide placeholder:text-slate-400"
                 type="password"
                 placeholder="••••••••"
                 value={password}
@@ -76,17 +76,16 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div className="bg-rusticbrown/10 border-2 border-rusticbrown/30 rounded-xl p-4">
-                <p className="font-body text-sm text-rusticbrown tracking-wide">
-                  ⚠️{" "}
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="font-body text-xs text-red-700 tracking-wide">
                   {error === "Firebase: Error (auth/invalid-credential)." ||
                   error.includes("invalid-credential")
-                    ? "Email atau password salah. Coba lagi ya!"
+                    ? "Email atau password salah"
                     : error.includes("user-not-found")
-                      ? "Email belum terdaftar. Yuk daftar dulu!"
+                      ? "Email belum terdaftar"
                       : error.includes("wrong-password")
-                        ? "Password salah nih. Coba ingat-ingat lagi!"
-                        : "Gagal masuk. Coba lagi ya!"}
+                        ? "Password salah"
+                        : "Gagal masuk, coba lagi"}
                 </p>
               </div>
             )}
@@ -94,26 +93,32 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-deepolive text-warmcream font-body font-semibold text-base px-6 py-4 rounded-xl hover:bg-softolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
+              className="w-full bg-softolive text-white font-body font-semibold text-sm px-6 py-3 rounded-lg hover:bg-deepolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
             >
-              {loading ? "Masuk..." : "Masuk"}
+              {loading ? "Memproses..." : "Masuk"}
             </button>
           </form>
 
-          <div className="flex items-center gap-4 my-6">
+          <div className="flex items-center gap-3 my-5">
             <div className="flex-1 h-px bg-slate-200"></div>
-            <span className="font-body text-sm text-slate-400">atau</span>
+            <span className="font-body text-xs text-slate-400 tracking-wide">
+              atau
+            </span>
             <div className="flex-1 h-px bg-slate-200"></div>
           </div>
 
           <button
             type="button"
             onClick={() => navigate("/register")}
-            className="w-full border-2 border-softolive text-softolive font-body font-semibold text-base px-6 py-4 rounded-xl hover:bg-softolive hover:text-warmcream transition-colors tracking-wide"
+            className="w-full border border-slate-300 text-slate-700 font-body font-semibold text-sm px-6 py-3 rounded-lg hover:border-softolive hover:text-softolive transition-colors tracking-wide"
           >
-            Daftar Akun Baru
+            Buat akun baru
           </button>
         </div>
+
+        <p className="text-center mt-6 font-body text-xs text-slate-500 tracking-wide">
+          Dengan masuk, kamu setuju dengan syarat dan ketentuan kami
+        </p>
       </div>
     </div>
   );
