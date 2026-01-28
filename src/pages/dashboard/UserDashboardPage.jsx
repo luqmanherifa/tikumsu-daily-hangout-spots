@@ -3,6 +3,7 @@ import { auth } from "../../lib/firebase";
 import {
   submitSpot,
   fetchUserSubmissions,
+  deleteSubmission,
 } from "../../services/submissionService";
 
 const FORM_CONFIG = [
@@ -112,6 +113,8 @@ export default function UserDashboardPage() {
   const [submissions, setSubmissions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [detailModal, setDetailModal] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const totalSteps = 2 + FORM_CONFIG.length;
 
@@ -206,6 +209,24 @@ export default function UserDashboardPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm("Yakin ingin menghapus submission ini?")) return;
+
+    setDeleteLoading(true);
+    try {
+      await deleteSubmission(id);
+      await loadSubmissions();
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
+  const canDelete = (submission) => {
+    return submission.createdBy === auth.currentUser?.uid;
   };
 
   const renderStepContent = () => {
@@ -442,40 +463,78 @@ export default function UserDashboardPage() {
 
         {submissions.length > 0 && (
           <div className="space-y-4">
-            <div className="sm:hidden space-y-4">
-              {submissions.map((s) => (
-                <div
-                  key={s.id}
-                  className="bg-white border-2 border-slate-200 rounded-2xl p-5"
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-heading font-bold text-lg text-deepolive tracking-tight flex-1">
-                      {s.name}
-                    </h3>
-                    <span
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold tracking-wide ml-3 ${
-                        s.status === "approved"
-                          ? "bg-softolive/20 text-softolive border border-softolive/30"
-                          : s.status === "rejected"
-                            ? "bg-rusticbrown/20 text-rusticbrown border border-rusticbrown/30"
-                            : "bg-carameltan/20 text-carameltan border border-carameltan/30"
+            <div className="bg-white rounded-2xl border-2 border-slate-200 overflow-hidden">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-deepolive text-warmcream">
+                    <th className="font-body font-semibold text-sm text-left px-6 py-4 tracking-wide">
+                      Nama Spot
+                    </th>
+                    <th className="font-body font-semibold text-sm text-left px-6 py-4 tracking-wide">
+                      Lokasi
+                    </th>
+                    <th className="font-body font-semibold text-sm text-left px-6 py-4 tracking-wide">
+                      Status
+                    </th>
+                    <th className="font-body font-semibold text-sm text-center px-6 py-4 tracking-wide">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {submissions.map((s, index) => (
+                    <tr
+                      key={s.id}
+                      className={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${
+                        index === submissions.length - 1 ? "border-b-0" : ""
                       }`}
                     >
-                      {s.status === "approved"
-                        ? "✓ Disetujui"
-                        : s.status === "rejected"
-                          ? "✕ Ditolak"
-                          : "⏱ Pending"}
-                    </span>
-                  </div>
-                  <p className="font-body text-sm text-slate-600 mb-3 tracking-wide leading-relaxed">
-                    {s.description}
-                  </p>
-                  <p className="font-body text-xs text-slate-500 tracking-wide">
-                    📍 {s.location}
-                  </p>
-                </div>
-              ))}
+                      <td className="font-body px-6 py-4 text-deepolive text-sm tracking-wide">
+                        {s.name}
+                      </td>
+                      <td className="font-body px-6 py-4 text-slate-600 text-sm tracking-wide">
+                        {s.location}
+                      </td>
+                      <td className="font-body px-6 py-4">
+                        <span
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide inline-block ${
+                            s.status === "approved"
+                              ? "bg-softolive/20 text-softolive border border-softolive/30"
+                              : s.status === "rejected"
+                                ? "bg-rusticbrown/20 text-rusticbrown border border-rusticbrown/30"
+                                : "bg-carameltan/20 text-carameltan border border-carameltan/30"
+                          }`}
+                        >
+                          {s.status === "approved"
+                            ? "✓ Disetujui"
+                            : s.status === "rejected"
+                              ? "✕ Ditolak"
+                              : "⏱ Pending"}
+                        </span>
+                      </td>
+                      <td className="font-body px-6 py-4">
+                        <div className="flex gap-2 justify-center">
+                          <button
+                            onClick={() => setDetailModal(s)}
+                            className="px-3 py-1.5 text-xs font-semibold text-deepolive border-2 border-slate-200 rounded-lg hover:border-softolive hover:bg-softolive/10 transition-colors tracking-wide"
+                          >
+                            Detail
+                          </button>
+                          {canDelete(s) && (
+                            <button
+                              onClick={() => handleDelete(s.id)}
+                              disabled={deleteLoading}
+                              className="px-3 py-1.5 text-xs font-semibold text-rusticbrown border-2 border-slate-200 rounded-lg hover:border-rusticbrown hover:bg-rusticbrown/10 transition-colors tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              Hapus
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             <div className="text-center pt-4">
@@ -559,6 +618,144 @@ export default function UserDashboardPage() {
                 )}
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {detailModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-8 border-2 border-slate-200 max-sm:p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
+                  Detail Spot
+                </h2>
+                <span
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide inline-block ${
+                    detailModal.status === "approved"
+                      ? "bg-softolive/20 text-softolive border border-softolive/30"
+                      : detailModal.status === "rejected"
+                        ? "bg-rusticbrown/20 text-rusticbrown border border-rusticbrown/30"
+                        : "bg-carameltan/20 text-carameltan border border-carameltan/30"
+                  }`}
+                >
+                  {detailModal.status === "approved"
+                    ? "✓ Disetujui"
+                    : detailModal.status === "rejected"
+                      ? "✕ Ditolak"
+                      : "⏱ Pending"}
+                </span>
+              </div>
+              <button
+                onClick={() => setDetailModal(null)}
+                className="text-slate-400 hover:text-slate-600 text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="space-y-5">
+              <div className="border-b border-slate-200 pb-5">
+                <h3 className="font-body font-semibold text-sm text-deepolive mb-3 tracking-wide">
+                  Informasi Dasar
+                </h3>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                      Nama Spot
+                    </p>
+                    <p className="font-body text-sm text-deepolive tracking-wide">
+                      {detailModal.name}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                      Deskripsi
+                    </p>
+                    <p className="font-body text-sm text-slate-600 tracking-wide leading-relaxed">
+                      {detailModal.description}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                      Lokasi
+                    </p>
+                    <p className="font-body text-sm text-slate-600 tracking-wide">
+                      📍 {detailModal.location}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-b border-slate-200 pb-5">
+                <h3 className="font-body font-semibold text-sm text-deepolive mb-3 tracking-wide">
+                  Fasilitas
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                      WiFi
+                    </p>
+                    <p className="font-body text-sm text-slate-600 tracking-wide">
+                      {detailModal.wifi || "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                      Stopkontak
+                    </p>
+                    <p className="font-body text-sm text-slate-600 tracking-wide">
+                      {detailModal.stopkontak || "-"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {FORM_CONFIG.map((field) => {
+                const value = detailModal[field.key];
+                if (!value || (Array.isArray(value) && value.length === 0))
+                  return null;
+
+                return (
+                  <div
+                    key={field.key}
+                    className="border-b border-slate-200 pb-5 last:border-b-0"
+                  >
+                    <h3 className="font-body font-semibold text-sm text-deepolive mb-2 tracking-wide">
+                      {field.label}
+                    </h3>
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-2">
+                      {field.question}
+                    </p>
+                    {Array.isArray(value) ? (
+                      <div className="flex flex-wrap gap-2">
+                        {value.map((item) => (
+                          <span
+                            key={item}
+                            className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-lg tracking-wide"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="font-body text-sm text-slate-600 tracking-wide">
+                        {value}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex gap-3 pt-6 max-sm:flex-col">
+              <button
+                onClick={() => setDetailModal(null)}
+                className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors tracking-wide"
+              >
+                Tutup
+              </button>
+            </div>
           </div>
         </div>
       )}
