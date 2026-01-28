@@ -19,7 +19,7 @@ export default function Navbar() {
           to="/"
           className="font-heading font-bold text-xl text-deepolive tracking-tight hover:text-softolive transition-colors max-sm:text-lg"
         >
-          Hangout
+          Tikumsu
         </Link>
 
         <div className="flex items-center gap-6 max-sm:gap-4">

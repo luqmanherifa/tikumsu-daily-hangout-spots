@@ -77,11 +77,9 @@ export default function HomePage() {
               </div>
 
               <h1 className="font-heading font-black text-5xl text-deepolive mb-5 leading-tight tracking-tight max-sm:text-3xl">
-                Spot nongkrong
+                Spot nongkrong terbaik
                 <br />
-                yang pas buat
-                <br />
-                <span className="text-softolive">hari ini</span>
+                <span className="text-softolive">untuk hari ini</span>
               </h1>
 
               <p className="font-body text-lg text-slate-600 mb-8 tracking-wide leading-relaxed max-w-xl max-sm:text-base">

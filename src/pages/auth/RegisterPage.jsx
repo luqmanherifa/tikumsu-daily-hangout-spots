@@ -31,7 +31,7 @@ const RegisterPage = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
-            Daftar di Hangout
+            Daftar di Tikumsu
           </h1>
           <p className="font-body text-sm text-slate-600 tracking-wide">
             Buat akun dan mulai berbagi spot favorit
