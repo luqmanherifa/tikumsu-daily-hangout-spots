@@ -13,20 +13,20 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-deepolive border-b-2 border-softolive/30">
-      <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between max-sm:px-5 max-sm:py-4">
+    <nav className="bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between max-sm:px-4 max-sm:py-3">
         <Link
           to="/"
-          className="font-heading font-black text-2xl text-carameltan tracking-tight hover:text-warmcream transition-colors max-sm:text-xl"
+          className="font-heading font-bold text-xl text-deepolive tracking-tight hover:text-softolive transition-colors max-sm:text-lg"
         >
-          HANGOUT
+          Hangout
         </Link>
 
-        <div className="flex items-center gap-8 max-sm:gap-5">
+        <div className="flex items-center gap-6 max-sm:gap-4">
           {!loading && user && (
             <Link
               to="/dashboard"
-              className="font-body text-sm font-medium text-warmcream hover:text-carameltan transition-colors tracking-wide max-sm:text-xs"
+              className="font-body text-sm font-medium text-slate-700 hover:text-softolive transition-colors tracking-wide max-sm:text-xs"
             >
               Dashboard
             </Link>
@@ -35,7 +35,7 @@ export default function Navbar() {
           {!loading && role === "admin" && (
             <Link
               to="/admin"
-              className="font-body text-sm font-medium text-warmcream hover:text-carameltan transition-colors tracking-wide max-sm:text-xs"
+              className="font-body text-sm font-medium text-slate-700 hover:text-softolive transition-colors tracking-wide max-sm:text-xs"
             >
               Admin
             </Link>
@@ -44,7 +44,7 @@ export default function Navbar() {
           {!loading && !user ? (
             <Link
               to="/login"
-              className="bg-rusticbrown text-warmcream font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-carameltan transition-colors tracking-wide max-sm:px-4 max-sm:py-2 max-sm:text-xs"
+              className="bg-softolive text-white font-body font-semibold text-sm px-5 py-2 rounded-lg hover:bg-deepolive transition-colors tracking-wide max-sm:px-4 max-sm:py-1.5 max-sm:text-xs"
             >
               Masuk
             </Link>
@@ -52,7 +52,7 @@ export default function Navbar() {
             !loading && (
               <button
                 onClick={handleLogout}
-                className="font-body text-sm font-medium text-warmcream hover:text-carameltan transition-colors tracking-wide max-sm:text-xs"
+                className="font-body text-sm font-medium text-slate-700 hover:text-rusticbrown transition-colors tracking-wide max-sm:text-xs"
               >
                 Keluar
               </button>
