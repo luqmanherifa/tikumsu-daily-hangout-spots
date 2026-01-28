@@ -245,13 +245,13 @@ export default function UserDashboardPage() {
   const renderStepContent = () => {
     if (currentStep === 0) {
       return (
-        <div className="space-y-5">
+        <div className="space-y-4">
           <div>
-            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+            <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
               Nama Spot
             </label>
             <input
-              className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
+              className="w-full border border-slate-300 px-4 py-2.5 rounded-lg font-body text-sm focus:outline-none focus:border-softolive transition-colors bg-white tracking-wide placeholder:text-slate-400"
               placeholder="Nama tempat..."
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -260,12 +260,12 @@ export default function UserDashboardPage() {
           </div>
 
           <div>
-            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+            <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
               Deskripsi
             </label>
             <textarea
-              className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive resize-none transition-colors bg-slate-50 focus:bg-white tracking-wide"
-              placeholder="Ceritain tentang spot ini..."
+              className="w-full border border-slate-300 px-4 py-2.5 rounded-lg font-body text-sm focus:outline-none focus:border-softolive resize-none transition-colors bg-white tracking-wide placeholder:text-slate-400"
+              placeholder="Ceritakan tentang spot ini..."
               rows="3"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -274,11 +274,11 @@ export default function UserDashboardPage() {
           </div>
 
           <div>
-            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+            <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
               Lokasi
             </label>
             <input
-              className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
+              className="w-full border border-slate-300 px-4 py-2.5 rounded-lg font-body text-sm focus:outline-none focus:border-softolive transition-colors bg-white tracking-wide placeholder:text-slate-400"
               placeholder="Alamat lengkap..."
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -293,20 +293,20 @@ export default function UserDashboardPage() {
       return (
         <div className="space-y-5">
           <div>
-            <label className="font-body text-sm font-medium text-deepolive mb-3 block tracking-wide">
+            <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
               WiFi
             </label>
-            <p className="font-body text-sm text-slate-600 mb-3 tracking-wide">
+            <p className="font-body text-xs text-slate-600 mb-3 tracking-wide">
               Apakah ada WiFi di tempat ini?
             </p>
             <div className="space-y-2">
               {["Ada", "Tidak ada", "Tidak tahu"].map((option) => (
                 <label
                   key={option}
-                  className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                  className={`flex items-center gap-3 font-body cursor-pointer p-3 rounded-lg border transition-colors ${
                     wifi === option
                       ? "border-softolive bg-softolive/10"
-                      : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                      : "border-slate-300 bg-white hover:border-softolive/50"
                   }`}
                 >
                   <input
@@ -314,9 +314,9 @@ export default function UserDashboardPage() {
                     name="wifi"
                     checked={wifi === option}
                     onChange={() => setWifi(option)}
-                    className="w-5 h-5 cursor-pointer accent-softolive"
+                    className="w-4 h-4 cursor-pointer accent-softolive"
                   />
-                  <span className="text-sm font-medium tracking-wide text-deepolive">
+                  <span className="text-sm font-medium tracking-wide text-slate-700">
                     {option}
                   </span>
                 </label>
@@ -325,20 +325,20 @@ export default function UserDashboardPage() {
           </div>
 
           <div>
-            <label className="font-body text-sm font-medium text-deepolive mb-3 block tracking-wide">
+            <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
               Stopkontak
             </label>
-            <p className="font-body text-sm text-slate-600 mb-3 tracking-wide">
+            <p className="font-body text-xs text-slate-600 mb-3 tracking-wide">
               Apakah ada stopkontak di tempat ini?
             </p>
             <div className="space-y-2">
               {["Ada", "Tidak ada", "Tidak tahu"].map((option) => (
                 <label
                   key={option}
-                  className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                  className={`flex items-center gap-3 font-body cursor-pointer p-3 rounded-lg border transition-colors ${
                     stopkontak === option
                       ? "border-softolive bg-softolive/10"
-                      : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                      : "border-slate-300 bg-white hover:border-softolive/50"
                   }`}
                 >
                   <input
@@ -346,9 +346,9 @@ export default function UserDashboardPage() {
                     name="stopkontak"
                     checked={stopkontak === option}
                     onChange={() => setStopkontak(option)}
-                    className="w-5 h-5 cursor-pointer accent-softolive"
+                    className="w-4 h-4 cursor-pointer accent-softolive"
                   />
-                  <span className="text-sm font-medium tracking-wide text-deepolive">
+                  <span className="text-sm font-medium tracking-wide text-slate-700">
                     {option}
                   </span>
                 </label>
@@ -364,31 +364,31 @@ export default function UserDashboardPage() {
 
     if (field.type === "multi") {
       return (
-        <div className="space-y-5">
+        <div className="space-y-4">
           <div>
-            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+            <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
               {field.label}
             </label>
-            <p className="font-body text-sm text-slate-600 mb-4 tracking-wide">
+            <p className="font-body text-xs text-slate-600 mb-3 tracking-wide">
               {field.question}
             </p>
             <div className="space-y-2">
               {field.options.map((option) => (
                 <label
                   key={option}
-                  className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                  className={`flex items-center gap-3 font-body cursor-pointer p-3 rounded-lg border transition-colors ${
                     formData[field.key]?.includes(option)
                       ? "border-softolive bg-softolive/10"
-                      : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                      : "border-slate-300 bg-white hover:border-softolive/50"
                   }`}
                 >
                   <input
                     type="checkbox"
                     checked={formData[field.key]?.includes(option)}
                     onChange={() => handleMultiSelect(field.key, option)}
-                    className="w-5 h-5 cursor-pointer accent-softolive"
+                    className="w-4 h-4 cursor-pointer accent-softolive"
                   />
-                  <span className="text-sm font-medium tracking-wide text-deepolive">
+                  <span className="text-sm font-medium tracking-wide text-slate-700">
                     {option}
                   </span>
                 </label>
@@ -400,22 +400,22 @@ export default function UserDashboardPage() {
     }
 
     return (
-      <div className="space-y-5">
+      <div className="space-y-4">
         <div>
-          <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+          <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
             {field.label}
           </label>
-          <p className="font-body text-sm text-slate-600 mb-4 tracking-wide">
+          <p className="font-body text-xs text-slate-600 mb-3 tracking-wide">
             {field.question}
           </p>
           <div className="space-y-2">
             {field.options.map((option) => (
               <label
                 key={option}
-                className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                className={`flex items-center gap-3 font-body cursor-pointer p-3 rounded-lg border transition-colors ${
                   formData[field.key] === option
                     ? "border-softolive bg-softolive/10"
-                    : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                    : "border-slate-300 bg-white hover:border-softolive/50"
                 }`}
               >
                 <input
@@ -423,9 +423,9 @@ export default function UserDashboardPage() {
                   name={field.key}
                   checked={formData[field.key] === option}
                   onChange={() => handleSingleSelect(field.key, option)}
-                  className="w-5 h-5 cursor-pointer accent-softolive"
+                  className="w-4 h-4 cursor-pointer accent-softolive"
                 />
-                <span className="text-sm font-medium tracking-wide text-deepolive">
+                <span className="text-sm font-medium tracking-wide text-slate-700">
                   {option}
                 </span>
               </label>
@@ -437,125 +437,127 @@ export default function UserDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-warmcream">
-      <div className="max-w-7xl mx-auto px-8 py-12 max-sm:px-5 max-sm:py-8">
-        <div className="flex justify-between items-center mb-10 max-sm:flex-col max-sm:items-start max-sm:gap-5">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
+        <div className="flex justify-between items-center mb-8 max-sm:flex-col max-sm:items-start max-sm:gap-4">
           <div>
-            <h1 className="font-heading font-black text-4xl text-deepolive mb-2 tracking-tight max-sm:text-3xl">
-              Spot Saya
+            <h1 className="font-heading font-bold text-3xl text-deepolive mb-1 tracking-tight max-sm:text-2xl">
+              Submission Saya
             </h1>
             <p className="font-body text-sm text-slate-600 tracking-wide">
-              Kelola semua submission spot yang kamu kirim
+              Kelola semua spot yang kamu submit
             </p>
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors tracking-wide max-sm:w-full"
+            className="bg-softolive text-white font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-deepolive transition-colors tracking-wide max-sm:w-full"
           >
             + Tambah Spot
           </button>
         </div>
 
         {pageLoading ? (
-          <div className="text-center py-24 bg-white rounded-2xl border-2 border-slate-200">
-            <div className="text-4xl mb-4">⏳</div>
-            <p className="font-body text-sm text-slate-500 tracking-wide">
+          <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
+            <div className="inline-block w-10 h-10 border-3 border-softolive border-t-transparent rounded-full animate-spin mb-3"></div>
+            <p className="font-body text-sm text-slate-600 tracking-wide">
               Memuat data...
             </p>
           </div>
         ) : submissions.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-2xl border-2 border-slate-200">
-            <div className="text-6xl mb-5">📍</div>
-            <p className="font-heading font-bold text-2xl text-deepolive mb-2 tracking-tight">
+          <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
+            <div className="text-5xl mb-3">📍</div>
+            <p className="font-heading font-bold text-xl text-deepolive mb-2 tracking-tight">
               Belum ada submission
             </p>
-            <p className="font-body text-sm text-slate-600 mb-6 tracking-wide">
-              Yuk share spot favorit kamu ke komunitas!
+            <p className="font-body text-sm text-slate-600 mb-5 tracking-wide">
+              Bagikan spot favorit ke komunitas
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3 rounded-xl hover:bg-softolive transition-colors tracking-wide inline-block"
+              className="bg-softolive text-white font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-deepolive transition-colors tracking-wide inline-block"
             >
               Tambah Spot Pertama
             </button>
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="bg-white rounded-2xl border-2 border-slate-200 overflow-hidden">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-deepolive text-warmcream">
-                    <th className="font-body font-semibold text-sm text-left px-6 py-4 tracking-wide">
-                      Nama Spot
-                    </th>
-                    <th className="font-body font-semibold text-sm text-left px-6 py-4 tracking-wide">
-                      Lokasi
-                    </th>
-                    <th className="font-body font-semibold text-sm text-left px-6 py-4 tracking-wide">
-                      Status
-                    </th>
-                    <th className="font-body font-semibold text-sm text-center px-6 py-4 tracking-wide">
-                      Aksi
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {submissions.map((s, index) => (
-                    <tr
-                      key={s.id}
-                      className={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${
-                        index === submissions.length - 1 ? "border-b-0" : ""
-                      }`}
-                    >
-                      <td className="font-body px-6 py-4 text-deepolive text-sm tracking-wide">
-                        {s.name}
-                      </td>
-                      <td className="font-body px-6 py-4 text-slate-600 text-sm tracking-wide">
-                        {s.location}
-                      </td>
-                      <td className="font-body px-6 py-4">
-                        <span
-                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide inline-block ${
-                            s.status === "approved"
-                              ? "bg-softolive/20 text-softolive border border-softolive/30"
-                              : s.status === "rejected"
-                                ? "bg-rusticbrown/20 text-rusticbrown border border-rusticbrown/30"
-                                : "bg-carameltan/20 text-carameltan border border-carameltan/30"
-                          }`}
-                        >
-                          {s.status === "approved"
-                            ? "✓ Disetujui"
-                            : s.status === "rejected"
-                              ? "✕ Ditolak"
-                              : "⏱ Pending"}
-                        </span>
-                      </td>
-                      <td className="font-body px-6 py-4">
-                        <div className="flex gap-2 justify-center">
-                          <button
-                            onClick={() => setDetailModal(s)}
-                            className="px-3 py-1.5 text-xs font-semibold text-deepolive border-2 border-slate-200 rounded-lg hover:border-softolive hover:bg-softolive/10 transition-colors tracking-wide"
-                          >
-                            Detail
-                          </button>
-                          {canDelete(s) && (
-                            <button
-                              onClick={() => handleDelete(s.id)}
-                              disabled={deleteLoading}
-                              className="px-3 py-1.5 text-xs font-semibold text-rusticbrown border-2 border-slate-200 rounded-lg hover:border-rusticbrown hover:bg-rusticbrown/10 transition-colors tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                              Hapus
-                            </button>
-                          )}
-                        </div>
-                      </td>
+            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="font-body font-semibold text-xs text-left px-4 py-3 tracking-wide text-slate-700">
+                        Nama Spot
+                      </th>
+                      <th className="font-body font-semibold text-xs text-left px-4 py-3 tracking-wide text-slate-700">
+                        Lokasi
+                      </th>
+                      <th className="font-body font-semibold text-xs text-left px-4 py-3 tracking-wide text-slate-700">
+                        Status
+                      </th>
+                      <th className="font-body font-semibold text-xs text-center px-4 py-3 tracking-wide text-slate-700">
+                        Aksi
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {submissions.map((s, index) => (
+                      <tr
+                        key={s.id}
+                        className={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${
+                          index === submissions.length - 1 ? "border-b-0" : ""
+                        }`}
+                      >
+                        <td className="font-body px-4 py-3 text-deepolive text-sm tracking-wide">
+                          {s.name}
+                        </td>
+                        <td className="font-body px-4 py-3 text-slate-600 text-sm tracking-wide">
+                          {s.location}
+                        </td>
+                        <td className="font-body px-4 py-3">
+                          <span
+                            className={`px-2.5 py-1 rounded-md text-xs font-semibold tracking-wide inline-block ${
+                              s.status === "approved"
+                                ? "bg-green-50 text-green-700 border border-green-200"
+                                : s.status === "rejected"
+                                  ? "bg-red-50 text-red-700 border border-red-200"
+                                  : "bg-amber-50 text-amber-700 border border-amber-200"
+                            }`}
+                          >
+                            {s.status === "approved"
+                              ? "Disetujui"
+                              : s.status === "rejected"
+                                ? "Ditolak"
+                                : "Pending"}
+                          </span>
+                        </td>
+                        <td className="font-body px-4 py-3">
+                          <div className="flex gap-2 justify-center">
+                            <button
+                              onClick={() => setDetailModal(s)}
+                              className="px-3 py-1.5 text-xs font-semibold text-slate-700 border border-slate-300 rounded-md hover:border-softolive hover:text-softolive transition-colors tracking-wide"
+                            >
+                              Detail
+                            </button>
+                            {canDelete(s) && (
+                              <button
+                                onClick={() => handleDelete(s.id)}
+                                disabled={deleteLoading}
+                                className="px-3 py-1.5 text-xs font-semibold text-red-700 border border-slate-300 rounded-md hover:border-red-500 hover:bg-red-50 transition-colors tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                Hapus
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <div className="text-center pt-4">
+            <div className="text-center pt-2">
               <p className="font-body text-xs text-slate-500 tracking-wide">
                 Total {submissions.length} submission
               </p>
@@ -566,25 +568,25 @@ export default function UserDashboardPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-8 border-2 border-slate-200 max-sm:p-6 max-h-[90vh] overflow-y-auto">
-            <div className="mb-6">
-              <h2 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
+          <div className="bg-white rounded-xl max-w-lg w-full p-6 border border-slate-200 max-sm:p-5 max-h-[90vh] overflow-y-auto">
+            <div className="mb-5">
+              <h2 className="font-heading font-bold text-2xl text-deepolive mb-1 tracking-tight max-sm:text-xl">
                 Tambah Spot Baru
               </h2>
               <p className="font-body text-sm text-slate-600 mb-4 tracking-wide">
-                Share tempat hangout favorit kamu!
+                Bagikan tempat hangout favoritmu
               </p>
 
               <div className="flex items-center gap-2 mb-2">
-                <div className="flex-1 bg-slate-200 rounded-full h-2">
+                <div className="flex-1 bg-slate-200 rounded-full h-1.5">
                   <div
-                    className="bg-softolive h-2 rounded-full transition-all duration-300"
+                    className="bg-softolive h-1.5 rounded-full transition-all duration-300"
                     style={{
                       width: `${((currentStep + 1) / totalSteps) * 100}%`,
                     }}
                   />
                 </div>
-                <span className="font-body text-xs text-slate-600 tracking-wide min-w-[60px] text-right">
+                <span className="font-body text-xs text-slate-600 tracking-wide min-w-[50px] text-right">
                   {currentStep + 1} / {totalSteps}
                 </span>
               </div>
@@ -593,12 +595,12 @@ export default function UserDashboardPage() {
             <form onSubmit={handleSubmit}>
               {renderStepContent()}
 
-              <div className="flex gap-3 pt-6 max-sm:flex-col">
+              <div className="flex gap-2 pt-5 max-sm:flex-col">
                 {currentStep > 0 && (
                   <button
                     type="button"
                     onClick={handlePrev}
-                    className="flex-1 border-2 border-slate-200 text-slate-700 font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-slate-50 transition-colors tracking-wide"
+                    className="flex-1 border border-slate-300 text-slate-700 font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-slate-50 transition-colors tracking-wide"
                     disabled={loading}
                   >
                     Sebelumnya
@@ -609,7 +611,7 @@ export default function UserDashboardPage() {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 border-2 border-slate-200 text-slate-700 font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-slate-50 transition-colors tracking-wide"
+                    className="flex-1 border border-slate-300 text-slate-700 font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-slate-50 transition-colors tracking-wide"
                     disabled={loading}
                   >
                     Batal
@@ -621,7 +623,7 @@ export default function UserDashboardPage() {
                     type="button"
                     onClick={handleNext}
                     disabled={!canProceedCurrentStep()}
-                    className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
+                    className="flex-1 bg-softolive text-white font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-deepolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
                   >
                     Selanjutnya
                   </button>
@@ -629,9 +631,9 @@ export default function UserDashboardPage() {
                   <button
                     type="submit"
                     disabled={loading || !canProceedCurrentStep()}
-                    className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
+                    className="flex-1 bg-softolive text-white font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-deepolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
                   >
-                    {loading ? "Mengirim..." : "Submit Spot"}
+                    {loading ? "Mengirim..." : "Submit"}
                   </button>
                 )}
               </div>
@@ -642,26 +644,26 @@ export default function UserDashboardPage() {
 
       {detailModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-8 border-2 border-slate-200 max-sm:p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-start mb-6">
+          <div className="bg-white rounded-xl max-w-2xl w-full p-6 border border-slate-200 max-sm:p-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-5">
               <div>
-                <h2 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
+                <h2 className="font-heading font-bold text-2xl text-deepolive mb-2 tracking-tight max-sm:text-xl">
                   Detail Spot
                 </h2>
                 <span
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide inline-block ${
+                  className={`px-2.5 py-1 rounded-md text-xs font-semibold tracking-wide inline-block ${
                     detailModal.status === "approved"
-                      ? "bg-softolive/20 text-softolive border border-softolive/30"
+                      ? "bg-green-50 text-green-700 border border-green-200"
                       : detailModal.status === "rejected"
-                        ? "bg-rusticbrown/20 text-rusticbrown border border-rusticbrown/30"
-                        : "bg-carameltan/20 text-carameltan border border-carameltan/30"
+                        ? "bg-red-50 text-red-700 border border-red-200"
+                        : "bg-amber-50 text-amber-700 border border-amber-200"
                   }`}
                 >
                   {detailModal.status === "approved"
-                    ? "✓ Disetujui"
+                    ? "Disetujui"
                     : detailModal.status === "rejected"
-                      ? "✕ Ditolak"
-                      : "⏱ Pending"}
+                      ? "Ditolak"
+                      : "Pending"}
                 </span>
               </div>
               <button
@@ -672,14 +674,14 @@ export default function UserDashboardPage() {
               </button>
             </div>
 
-            <div className="space-y-5">
-              <div className="border-b border-slate-200 pb-5">
-                <h3 className="font-body font-semibold text-sm text-deepolive mb-3 tracking-wide">
+            <div className="space-y-4">
+              <div className="border-b border-slate-200 pb-4">
+                <h3 className="font-body font-semibold text-sm text-slate-700 mb-3 tracking-wide">
                   Informasi Dasar
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-2">
                   <div>
-                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-0.5">
                       Nama Spot
                     </p>
                     <p className="font-body text-sm text-deepolive tracking-wide">
@@ -687,7 +689,7 @@ export default function UserDashboardPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-0.5">
                       Deskripsi
                     </p>
                     <p className="font-body text-sm text-slate-600 tracking-wide leading-relaxed">
@@ -695,7 +697,7 @@ export default function UserDashboardPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-0.5">
                       Lokasi
                     </p>
                     <p className="font-body text-sm text-slate-600 tracking-wide">
@@ -705,13 +707,13 @@ export default function UserDashboardPage() {
                 </div>
               </div>
 
-              <div className="border-b border-slate-200 pb-5">
-                <h3 className="font-body font-semibold text-sm text-deepolive mb-3 tracking-wide">
+              <div className="border-b border-slate-200 pb-4">
+                <h3 className="font-body font-semibold text-sm text-slate-700 mb-3 tracking-wide">
                   Fasilitas
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-0.5">
                       WiFi
                     </p>
                     <p className="font-body text-sm text-slate-600 tracking-wide">
@@ -719,7 +721,7 @@ export default function UserDashboardPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="font-body text-xs text-slate-500 tracking-wide mb-1">
+                    <p className="font-body text-xs text-slate-500 tracking-wide mb-0.5">
                       Stopkontak
                     </p>
                     <p className="font-body text-sm text-slate-600 tracking-wide">
@@ -737,20 +739,20 @@ export default function UserDashboardPage() {
                 return (
                   <div
                     key={field.key}
-                    className="border-b border-slate-200 pb-5 last:border-b-0"
+                    className="border-b border-slate-200 pb-4 last:border-b-0"
                   >
-                    <h3 className="font-body font-semibold text-sm text-deepolive mb-2 tracking-wide">
+                    <h3 className="font-body font-semibold text-sm text-slate-700 mb-1 tracking-wide">
                       {field.label}
                     </h3>
                     <p className="font-body text-xs text-slate-500 tracking-wide mb-2">
                       {field.question}
                     </p>
                     {Array.isArray(value) ? (
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5">
                         {value.map((item) => (
                           <span
                             key={item}
-                            className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-lg tracking-wide"
+                            className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-md tracking-wide border border-slate-200"
                           >
                             {item}
                           </span>
@@ -766,10 +768,10 @@ export default function UserDashboardPage() {
               })}
             </div>
 
-            <div className="flex gap-3 pt-6 max-sm:flex-col">
+            <div className="flex gap-2 pt-5 max-sm:flex-col">
               <button
                 onClick={() => setDetailModal(null)}
-                className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors tracking-wide"
+                className="flex-1 bg-softolive text-white font-body font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-deepolive transition-colors tracking-wide"
               >
                 Tutup
               </button>
