@@ -5,14 +5,115 @@ import {
   fetchUserSubmissions,
 } from "../../services/submissionService";
 
+const FORM_CONFIG = [
+  {
+    key: "kebutuhan",
+    label: "Kebutuhan",
+    question: "Tempat ini biasanya digunakan untuk apa?",
+    type: "multi",
+    options: [
+      "Ngopi cepat",
+      "Makan ringan",
+      "Makan utama",
+      "Bekerja sebentar",
+      "Nongkrong santai",
+      "Menunggu",
+      "Istirahat singkat",
+    ],
+  },
+  {
+    key: "waktu",
+    label: "Waktu",
+    question: "Waktu yang paling sesuai untuk tempat ini?",
+    type: "multi",
+    options: ["Pagi", "Siang", "Sore", "Malam", "Larut malam"],
+  },
+  {
+    key: "suasana",
+    label: "Suasana",
+    question: "Bagaimana suasana tempat ini secara umum?",
+    type: "single",
+    options: ["Sepi", "Sedang", "Ramai"],
+  },
+  {
+    key: "durasi",
+    label: "Durasi",
+    question: "Berapa lama biasanya orang berada di tempat ini?",
+    type: "single",
+    options: ["Singkat", "Sedang", "Lama"],
+  },
+  {
+    key: "biaya",
+    label: "Biaya",
+    question: "Bagaimana perkiraan biaya di tempat ini?",
+    type: "single",
+    options: ["Murah", "Sedang", "Tinggi"],
+  },
+  {
+    key: "aktivitas",
+    label: "Aktivitas",
+    question: "Aktivitas apa yang paling sesuai di tempat ini?",
+    type: "multi",
+    options: ["Fokus", "Mengobrol", "Santai", "Menunggu", "Transit"],
+  },
+  {
+    key: "kepadatan",
+    label: "Kepadatan",
+    question: "Seberapa padat tempat ini biasanya?",
+    type: "single",
+    options: ["Longgar", "Normal", "Padat"],
+  },
+  {
+    key: "fleksibilitas",
+    label: "Fleksibilitas",
+    question: "Seberapa praktis tempat ini untuk datang dan pergi?",
+    type: "single",
+    options: ["Praktis", "Standar", "Formal"],
+  },
+  {
+    key: "polaKunjungan",
+    label: "Pola Kunjungan",
+    question: "Bagaimana pola kunjungan yang umum di tempat ini?",
+    type: "single",
+    options: ["Datang–pergi", "Duduk singkat", "Duduk lama"],
+  },
+  {
+    key: "kenyamanan",
+    label: "Kenyamanan",
+    question: "Bagaimana tingkat kenyamanan untuk duduk dan beraktivitas?",
+    type: "single",
+    options: ["Dasar", "Cukup", "Nyaman"],
+  },
+  {
+    key: "tipeKunjungan",
+    label: "Tipe Kunjungan",
+    question: "Tempat ini masuk akal untuk berapa orang?",
+    type: "multi",
+    options: ["Sendiri", "Berdua", "Kelompok kecil", "Kelompok besar"],
+  },
+];
+
 export default function UserDashboardPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [wifi, setWifi] = useState(false);
+  const [wifi, setWifi] = useState("");
+  const [stopkontak, setStopkontak] = useState("");
+
+  const [formData, setFormData] = useState(() => {
+    const initialData = {};
+    FORM_CONFIG.forEach((field) => {
+      initialData[field.key] = field.type === "multi" ? [] : "";
+    });
+    return initialData;
+  });
+
   const [loading, setLoading] = useState(false);
   const [submissions, setSubmissions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const totalSteps = 2 + FORM_CONFIG.length;
 
   const loadSubmissions = async () => {
     if (!auth.currentUser) return;
@@ -23,6 +124,61 @@ export default function UserDashboardPage() {
   useEffect(() => {
     loadSubmissions();
   }, []);
+
+  const handleMultiSelect = (fieldKey, option) => {
+    setFormData((prev) => {
+      const currentValues = prev[fieldKey] || [];
+      const newValues = currentValues.includes(option)
+        ? currentValues.filter((v) => v !== option)
+        : [...currentValues, option];
+      return { ...prev, [fieldKey]: newValues };
+    });
+  };
+
+  const handleSingleSelect = (fieldKey, option) => {
+    setFormData((prev) => ({ ...prev, [fieldKey]: option }));
+  };
+
+  const canProceedCurrentStep = () => {
+    if (currentStep === 0) {
+      return name.trim() && description.trim() && location.trim();
+    }
+    if (currentStep === 1) {
+      return wifi && stopkontak;
+    }
+    const fieldIndex = currentStep - 2;
+    const field = FORM_CONFIG[fieldIndex];
+    if (field.type === "multi") {
+      return formData[field.key] && formData[field.key].length > 0;
+    }
+    return formData[field.key] !== "";
+  };
+
+  const handleNext = () => {
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const resetForm = () => {
+    setName("");
+    setDescription("");
+    setLocation("");
+    setWifi("");
+    setStopkontak("");
+    const resetData = {};
+    FORM_CONFIG.forEach((field) => {
+      resetData[field.key] = field.type === "multi" ? [] : "";
+    });
+    setFormData(resetData);
+    setCurrentStep(0);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,26 +191,215 @@ export default function UserDashboardPage() {
           description,
           location,
           wifi,
-          tags: [],
-          topMenus: [],
-          busyTimes: [],
+          stopkontak,
+          ...formData,
           adminNote: "",
         },
         auth.currentUser,
       );
 
       await loadSubmissions();
-
-      setName("");
-      setDescription("");
-      setLocation("");
-      setWifi(false);
+      resetForm();
       setIsModalOpen(false);
     } catch (err) {
       alert(err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const renderStepContent = () => {
+    if (currentStep === 0) {
+      return (
+        <div className="space-y-5">
+          <div>
+            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+              Nama Spot
+            </label>
+            <input
+              className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
+              placeholder="Nama tempat..."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+              Deskripsi
+            </label>
+            <textarea
+              className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive resize-none transition-colors bg-slate-50 focus:bg-white tracking-wide"
+              placeholder="Ceritain tentang spot ini..."
+              rows="3"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+              Lokasi
+            </label>
+            <input
+              className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
+              placeholder="Alamat lengkap..."
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+      );
+    }
+
+    if (currentStep === 1) {
+      return (
+        <div className="space-y-5">
+          <div>
+            <label className="font-body text-sm font-medium text-deepolive mb-3 block tracking-wide">
+              WiFi
+            </label>
+            <p className="font-body text-sm text-slate-600 mb-3 tracking-wide">
+              Apakah ada WiFi di tempat ini?
+            </p>
+            <div className="space-y-2">
+              {["Ada", "Tidak ada", "Tidak tahu"].map((option) => (
+                <label
+                  key={option}
+                  className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                    wifi === option
+                      ? "border-softolive bg-softolive/10"
+                      : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="wifi"
+                    checked={wifi === option}
+                    onChange={() => setWifi(option)}
+                    className="w-5 h-5 cursor-pointer accent-softolive"
+                  />
+                  <span className="text-sm font-medium tracking-wide text-deepolive">
+                    {option}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="font-body text-sm font-medium text-deepolive mb-3 block tracking-wide">
+              Stopkontak
+            </label>
+            <p className="font-body text-sm text-slate-600 mb-3 tracking-wide">
+              Apakah ada stopkontak di tempat ini?
+            </p>
+            <div className="space-y-2">
+              {["Ada", "Tidak ada", "Tidak tahu"].map((option) => (
+                <label
+                  key={option}
+                  className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                    stopkontak === option
+                      ? "border-softolive bg-softolive/10"
+                      : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="stopkontak"
+                    checked={stopkontak === option}
+                    onChange={() => setStopkontak(option)}
+                    className="w-5 h-5 cursor-pointer accent-softolive"
+                  />
+                  <span className="text-sm font-medium tracking-wide text-deepolive">
+                    {option}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const fieldIndex = currentStep - 2;
+    const field = FORM_CONFIG[fieldIndex];
+
+    if (field.type === "multi") {
+      return (
+        <div className="space-y-5">
+          <div>
+            <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+              {field.label}
+            </label>
+            <p className="font-body text-sm text-slate-600 mb-4 tracking-wide">
+              {field.question}
+            </p>
+            <div className="space-y-2">
+              {field.options.map((option) => (
+                <label
+                  key={option}
+                  className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                    formData[field.key]?.includes(option)
+                      ? "border-softolive bg-softolive/10"
+                      : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={formData[field.key]?.includes(option)}
+                    onChange={() => handleMultiSelect(field.key, option)}
+                    className="w-5 h-5 cursor-pointer accent-softolive"
+                  />
+                  <span className="text-sm font-medium tracking-wide text-deepolive">
+                    {option}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-5">
+        <div>
+          <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
+            {field.label}
+          </label>
+          <p className="font-body text-sm text-slate-600 mb-4 tracking-wide">
+            {field.question}
+          </p>
+          <div className="space-y-2">
+            {field.options.map((option) => (
+              <label
+                key={option}
+                className={`flex items-center gap-3 font-body cursor-pointer p-4 rounded-xl border-2 transition-colors ${
+                  formData[field.key] === option
+                    ? "border-softolive bg-softolive/10"
+                    : "border-slate-200 bg-slate-50 hover:border-softolive/50"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name={field.key}
+                  checked={formData[field.key] === option}
+                  onChange={() => handleSingleSelect(field.key, option)}
+                  className="w-5 h-5 cursor-pointer accent-softolive"
+                />
+                <span className="text-sm font-medium tracking-wide text-deepolive">
+                  {option}
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -97,68 +442,6 @@ export default function UserDashboardPage() {
 
         {submissions.length > 0 && (
           <div className="space-y-4">
-            <div className="hidden sm:block bg-white rounded-2xl border-2 border-slate-200 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="bg-deepolive text-warmcream">
-                      <th className="font-heading font-bold text-sm text-left px-6 py-4 tracking-tight">
-                        Nama Spot
-                      </th>
-                      <th className="font-heading font-bold text-sm text-left px-6 py-4 tracking-tight">
-                        Deskripsi
-                      </th>
-                      <th className="font-heading font-bold text-sm text-left px-6 py-4 tracking-tight">
-                        Lokasi
-                      </th>
-                      <th className="font-heading font-bold text-sm text-left px-6 py-4 tracking-tight">
-                        Status
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {submissions.map((s, index) => (
-                      <tr
-                        key={s.id}
-                        className={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${
-                          index === submissions.length - 1 ? "border-b-0" : ""
-                        }`}
-                      >
-                        <td className="font-body px-6 py-5">
-                          <div className="font-semibold text-deepolive text-base tracking-wide">
-                            {s.name}
-                          </div>
-                        </td>
-                        <td className="font-body px-6 py-5 text-slate-600 text-sm tracking-wide">
-                          {s.description}
-                        </td>
-                        <td className="font-body px-6 py-5 text-slate-600 text-sm tracking-wide">
-                          📍 {s.location}
-                        </td>
-                        <td className="font-body px-6 py-5">
-                          <span
-                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide inline-block ${
-                              s.status === "approved"
-                                ? "bg-softolive/20 text-softolive border border-softolive/30"
-                                : s.status === "rejected"
-                                  ? "bg-rusticbrown/20 text-rusticbrown border border-rusticbrown/30"
-                                  : "bg-carameltan/20 text-carameltan border border-carameltan/30"
-                            }`}
-                          >
-                            {s.status === "approved"
-                              ? "✓ Disetujui"
-                              : s.status === "rejected"
-                                ? "✕ Ditolak"
-                                : "⏱ Pending"}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
             <div className="sm:hidden space-y-4">
               {submissions.map((s) => (
                 <div
@@ -206,83 +489,74 @@ export default function UserDashboardPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-8 border-2 border-slate-200 max-sm:p-6">
-            <h2 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
-              Tambah Spot Baru
-            </h2>
-            <p className="font-body text-sm text-slate-600 mb-6 tracking-wide">
-              Share tempat hangout favorit kamu!
-            </p>
+          <div className="bg-white rounded-2xl max-w-lg w-full p-8 border-2 border-slate-200 max-sm:p-6 max-h-[90vh] overflow-y-auto">
+            <div className="mb-6">
+              <h2 className="font-heading font-bold text-3xl text-deepolive mb-2 tracking-tight max-sm:text-2xl">
+                Tambah Spot Baru
+              </h2>
+              <p className="font-body text-sm text-slate-600 mb-4 tracking-wide">
+                Share tempat hangout favorit kamu!
+              </p>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
-                  Nama Spot
-                </label>
-                <input
-                  className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
-                  placeholder="Nama tempat..."
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
-                  Deskripsi
-                </label>
-                <textarea
-                  className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive resize-none transition-colors bg-slate-50 focus:bg-white tracking-wide"
-                  placeholder="Ceritain tentang spot ini..."
-                  rows="3"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="font-body text-sm font-medium text-deepolive mb-2 block tracking-wide">
-                  Lokasi
-                </label>
-                <input
-                  className="w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-body text-base focus:outline-none focus:border-softolive transition-colors bg-slate-50 focus:bg-white tracking-wide"
-                  placeholder="Alamat lengkap..."
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  required
-                />
-              </div>
-
-              <label className="flex items-center gap-3 font-body text-deepolive cursor-pointer p-4 bg-slate-50 rounded-xl border-2 border-slate-200 hover:border-softolive transition-colors">
-                <input
-                  type="checkbox"
-                  checked={wifi}
-                  onChange={(e) => setWifi(e.target.checked)}
-                  className="w-5 h-5 cursor-pointer accent-softolive"
-                />
-                <span className="text-sm font-medium tracking-wide">
-                  Ada WiFi di tempat ini
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex-1 bg-slate-200 rounded-full h-2">
+                  <div
+                    className="bg-softolive h-2 rounded-full transition-all duration-300"
+                    style={{
+                      width: `${((currentStep + 1) / totalSteps) * 100}%`,
+                    }}
+                  />
+                </div>
+                <span className="font-body text-xs text-slate-600 tracking-wide min-w-[60px] text-right">
+                  {currentStep + 1} / {totalSteps}
                 </span>
-              </label>
+              </div>
+            </div>
 
-              <div className="flex gap-3 pt-2 max-sm:flex-col">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="flex-1 border-2 border-slate-200 text-slate-700 font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-slate-50 transition-colors tracking-wide"
-                  disabled={loading}
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
-                >
-                  {loading ? "Mengirim..." : "Submit Spot"}
-                </button>
+            <form onSubmit={handleSubmit}>
+              {renderStepContent()}
+
+              <div className="flex gap-3 pt-6 max-sm:flex-col">
+                {currentStep > 0 && (
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="flex-1 border-2 border-slate-200 text-slate-700 font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-slate-50 transition-colors tracking-wide"
+                    disabled={loading}
+                  >
+                    Sebelumnya
+                  </button>
+                )}
+
+                {currentStep === 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 border-2 border-slate-200 text-slate-700 font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-slate-50 transition-colors tracking-wide"
+                    disabled={loading}
+                  >
+                    Batal
+                  </button>
+                )}
+
+                {currentStep < totalSteps - 1 ? (
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={!canProceedCurrentStep()}
+                    className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
+                  >
+                    Selanjutnya
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={loading || !canProceedCurrentStep()}
+                    className="flex-1 bg-deepolive text-warmcream font-body font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-softolive transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed tracking-wide"
+                  >
+                    {loading ? "Mengirim..." : "Submit Spot"}
+                  </button>
+                )}
               </div>
             </form>
           </div>
