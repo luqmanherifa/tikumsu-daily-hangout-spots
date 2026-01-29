@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
+import { getDetailImageUrl } from "../../services/cloudinaryService";
 import {
   SpinnerIcon,
   SearchIcon,
@@ -24,30 +25,24 @@ import {
   RepeatIcon,
 } from "../../components/icons.jsx";
 
-const SPOT_IMAGES = [
-  "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1516826957135-700dedea698c?w=800&h=500&fit=crop",
-];
-
-const getRandomImages = (count = 3) => {
-  const shuffled = [...SPOT_IMAGES].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-};
-
 export default function SpotDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [spot, setSpot] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [images] = useState(getRandomImages(3));
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const getSpotImage = (spot) => {
+    if (spot?.imageUrl) {
+      return getDetailImageUrl(spot.imageUrl);
+    }
+    return "/tikumsu.png";
+  };
+
+  const handleImageError = (e) => {
+    e.target.src = "/tikumsu.png";
+    e.target.onerror = null;
+  };
 
   useEffect(() => {
     const loadSpot = async () => {
@@ -70,16 +65,6 @@ export default function SpotDetailPage() {
 
     loadSpot();
   }, [id]);
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
 
   if (loading) {
     return (
@@ -131,26 +116,19 @@ export default function SpotDetailPage() {
       </div>
 
       <div className="max-w-3xl mx-auto px-6 pb-8 max-sm:px-4 max-sm:pb-6">
-        <div className="relative w-full h-64 bg-slate-100 rounded-xl overflow-hidden mb-6 max-sm:h-48">
+        <div className="relative w-full h-64 bg-slate-100 rounded-xl overflow-hidden mb-6 max-sm:h-48 border-b border-slate-200">
           <img
-            src={images[currentImageIndex]}
+            src={getSpotImage(spot)}
             alt={spot.name}
-            className="w-full h-full object-cover transition-opacity duration-500"
+            className="w-full h-full object-cover"
+            onError={handleImageError}
           />
 
-          {images.length > 1 && (
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentImageIndex
-                      ? "bg-white w-6"
-                      : "bg-white/50 hover:bg-white/75"
-                  }`}
-                />
-              ))}
+          {!spot.imageUrl && (
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-900/10">
+              <span className="text-white text-sm font-body tracking-wide bg-slate-900/50 px-3 py-1.5 rounded">
+                No Image
+              </span>
             </div>
           )}
 

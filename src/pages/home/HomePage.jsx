@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchApprovedSpots, advancedFilter } from "../../services/spotService";
 import { useAuthUser } from "../../lib/useAuthUser";
+import { getCardImageUrl } from "../../services/cloudinaryService";
 import {
   MapIcon,
   CoffeeIcon,
@@ -31,28 +32,12 @@ import {
   CouchIcon,
 } from "../../components/icons";
 
-const SPOT_IMAGES = [
-  "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1516826957135-700dedea698c?w=400&h=300&fit=crop",
-];
-
-const getRandomImage = () => {
-  return SPOT_IMAGES[Math.floor(Math.random() * SPOT_IMAGES.length)];
-};
-
 export default function HomePage() {
   const navigate = useNavigate();
   const { user } = useAuthUser();
   const [spots, setSpots] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [imageMap, setImageMap] = useState({});
   const [showFilters, setShowFilters] = useState(false);
 
   const [filters, setFilters] = useState({
@@ -94,19 +79,24 @@ export default function HomePage() {
     kenyamanan: ["Dasar", "Cukup", "Nyaman"],
   };
 
+  const getSpotImage = (spot) => {
+    if (spot.imageUrl) {
+      return getCardImageUrl(spot.imageUrl);
+    }
+    return "/tikumsu.png";
+  };
+
+  const handleImageError = (e) => {
+    e.target.src = "/tikumsu.png";
+    e.target.onerror = null;
+  };
+
   useEffect(() => {
     const loadSpots = async () => {
       setLoading(true);
       const data = await fetchApprovedSpots();
       setSpots(data);
       setFiltered(data);
-
-      const images = {};
-      data.forEach((spot) => {
-        images[spot.id] = getRandomImage();
-      });
-      setImageMap(images);
-
       setLoading(false);
     };
 
@@ -676,12 +666,20 @@ export default function HomePage() {
                   onClick={() => navigate(`/spot/${spot.id}`)}
                   className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-softolive transition-all cursor-pointer group"
                 >
-                  <div className="relative w-full h-48 bg-slate-100 overflow-hidden">
+                  <div className="relative w-full h-48 bg-slate-100 overflow-hidden border-b border-slate-200">
                     <img
-                      src={imageMap[spot.id] || SPOT_IMAGES[0]}
+                      src={getSpotImage(spot)}
                       alt={spot.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={handleImageError}
                     />
+                    {!spot.imageUrl && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-slate-900/10">
+                        <span className="text-white text-xs font-body tracking-wide bg-slate-900/50 px-2 py-1 rounded">
+                          No Image
+                        </span>
+                      </div>
+                    )}
                     {spot.biaya && (
                       <div className="absolute top-2 right-2">
                         <span className="bg-white/95 backdrop-blur-sm text-deepolive font-body text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-200 flex items-center gap-1">
