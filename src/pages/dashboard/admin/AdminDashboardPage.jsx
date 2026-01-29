@@ -127,40 +127,62 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
-        <AdminHeader />
+    <div className="min-h-screen bg-white flex flex-col">
+      <div className="flex-1">
+        <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
+          <AdminHeader />
 
-        <StatsCards stats={stats} />
+          <StatsCards stats={stats} />
 
-        <FilterTabs filter={filter} onFilterChange={setFilter} stats={stats} />
+          <FilterTabs
+            filter={filter}
+            onFilterChange={setFilter}
+            stats={stats}
+          />
 
-        {loading ? (
-          <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
-            <div className="inline-block w-10 h-10 border-3 border-softolive border-t-transparent rounded-full animate-spin mb-3"></div>
-            <p className="font-body text-sm text-slate-600 tracking-wide">
-              Memuat data...
-            </p>
-          </div>
-        ) : filteredSubmissions.length === 0 ? (
-          <AdminEmptyState filter={filter} />
-        ) : (
-          <>
-            <AdminSubmissionTable
-              submissions={filteredSubmissions}
-              onViewDetail={setDetailModal}
-              onApprove={handleApprove}
-              onReject={handleReject}
-            />
-
-            <div className="text-center pt-4">
-              <p className="font-body text-xs text-slate-500 tracking-wide">
-                Menampilkan {filteredSubmissions.length} dari {stats.total}{" "}
-                pengajuan
+          {loading ? (
+            <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
+              <div className="inline-block w-10 h-10 border-3 border-softolive border-t-transparent rounded-full animate-spin mb-3"></div>
+              <p className="font-body text-sm text-slate-600 tracking-wide">
+                Memuat data...
               </p>
             </div>
-          </>
-        )}
+          ) : filteredSubmissions.length === 0 ? (
+            <AdminEmptyState filter={filter} />
+          ) : (
+            <>
+              <AdminSubmissionTable
+                submissions={filteredSubmissions}
+                onViewDetail={setDetailModal}
+                onApprove={handleApprove}
+                onReject={handleReject}
+              />
+
+              <div className="text-center pt-4">
+                <p className="font-body text-xs text-slate-500 tracking-wide">
+                  Menampilkan {filteredSubmissions.length} dari {stats.total}{" "}
+                  pengajuan
+                </p>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="bg-white border-t border-slate-200">
+        <div className="max-w-3xl mx-auto px-6 py-6 max-sm:px-4 max-sm:py-5">
+          <div className="text-center font-body text-sm text-slate-600 tracking-wide">
+            © 2026{" "}
+            <a
+              href="https://github.com/Spesialis-Ngopi-Dadakan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-600 hover:text-softolive hover:underline transition-colors"
+            >
+              Spesialis Ngopi Dadakan
+            </a>
+          </div>
+        </div>
       </div>
 
       <AdminDetailModal

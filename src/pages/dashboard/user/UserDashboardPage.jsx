@@ -201,23 +201,41 @@ export default function UserDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
-        <UserHeader onAddSpot={() => setIsModalOpen(true)} />
+    <div className="min-h-screen bg-white flex flex-col">
+      <div className="flex-1">
+        <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
+          <UserHeader onAddSpot={() => setIsModalOpen(true)} />
 
-        {pageLoading ? (
-          <UserEmptyState isLoading={true} />
-        ) : submissions.length === 0 ? (
-          <UserEmptyState onAddSpot={() => setIsModalOpen(true)} />
-        ) : (
-          <UserSubmissionTable
-            submissions={submissions}
-            onViewDetail={setDetailModal}
-            onDelete={handleDelete}
-            deleteLoading={deleteLoading}
-            canDelete={canDelete}
-          />
-        )}
+          {pageLoading ? (
+            <UserEmptyState isLoading={true} />
+          ) : submissions.length === 0 ? (
+            <UserEmptyState onAddSpot={() => setIsModalOpen(true)} />
+          ) : (
+            <UserSubmissionTable
+              submissions={submissions}
+              onViewDetail={setDetailModal}
+              onDelete={handleDelete}
+              deleteLoading={deleteLoading}
+              canDelete={canDelete}
+            />
+          )}
+        </div>
+      </div>
+
+      <div className="bg-white border-t border-slate-200">
+        <div className="max-w-3xl mx-auto px-6 py-6 max-sm:px-4 max-sm:py-5">
+          <div className="text-center font-body text-sm text-slate-600 tracking-wide">
+            © 2026{" "}
+            <a
+              href="https://github.com/Spesialis-Ngopi-Dadakan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-600 hover:text-softolive hover:underline transition-colors"
+            >
+              Spesialis Ngopi Dadakan
+            </a>
+          </div>
+        </div>
       </div>
 
       <AddSpotModal
