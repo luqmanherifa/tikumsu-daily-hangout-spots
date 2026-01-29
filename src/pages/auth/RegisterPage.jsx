@@ -55,13 +55,18 @@ const RegisterPage = () => {
             </div>
 
             <div>
-              <label className="font-body text-sm font-medium text-slate-700 mb-2 block tracking-wide">
-                Password
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="font-body text-sm font-medium text-slate-700 tracking-wide">
+                  Password
+                </label>
+                <span className="font-body text-xs text-slate-500 tracking-wide">
+                  Min. 6 karakter
+                </span>
+              </div>
               <input
                 className="w-full border border-slate-300 px-4 py-2.5 rounded-lg font-body text-sm focus:outline-none focus:border-softolive transition-colors bg-white tracking-wide placeholder:text-slate-400"
                 type="password"
-                placeholder="Minimal 6 karakter"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

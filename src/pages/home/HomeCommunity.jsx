@@ -11,17 +11,17 @@ export default function HomeCommunity({ user, spots, loading }) {
           <div className="inline-block bg-white/20 backdrop-blur-sm border border-white/30 px-4 py-2 rounded-full mb-5">
             <p className="font-body text-sm font-semibold text-white tracking-wide flex items-center gap-2 justify-center">
               <LightbulbIcon className="w-4 h-4" />
-              Bantu Komunitas
+              Bagikan Rekomendasimu
             </p>
           </div>
 
           <h2 className="font-heading font-semibold text-4xl text-white mb-4 tracking-tight max-sm:text-2xl">
-            Punya rekomendasi spot favorit?
+            Punya spot favorit yang sering dikunjungi?
           </h2>
 
-          <p className="font-body text-lg text-white/90 mb-8 tracking-wide leading-relaxed max-sm:text-base">
-            Bagikan spot nongkrong yang sering kamu kunjungi. Bantu orang lain
-            menemukan tempat yang pas untuk kebutuhan mereka.
+          <p className="font-body text-lg text-white/90 mb-8 tracking-wide leading-relaxed max-sm:text-base max-w-xl mx-auto">
+            Bagikan ke komunitas dan bantu orang lain menemukan tempat nongkrong
+            yang pas untuk kebutuhan mereka.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -40,13 +40,13 @@ export default function HomeCommunity({ user, spots, loading }) {
                   onClick={() => navigate("/login")}
                   className="bg-white text-deepolive font-body font-bold text-base px-8 py-4 rounded-lg hover:bg-slate-100 transition-colors tracking-wide w-full sm:w-auto"
                 >
-                  Masuk untuk Kontribusi
+                  Masuk dan Berkontribusi
                 </button>
                 <button
                   onClick={() => navigate("/register")}
                   className="border-2 border-white text-white font-body font-bold text-base px-8 py-4 rounded-lg hover:bg-white/10 transition-colors tracking-wide w-full sm:w-auto"
                 >
-                  Daftar Gratis
+                  Daftar Sekarang
                 </button>
               </>
             )}
@@ -67,13 +67,11 @@ export default function HomeCommunity({ user, spots, loading }) {
                   100%
                 </div>
                 <div className="font-body text-xs text-white/80 tracking-wide mt-1">
-                  Gratis
+                  Tanpa Biaya
                 </div>
               </div>
               <div className="text-center">
                 <div className="font-heading font-bold text-2xl text-white tracking-tight flex items-center justify-center gap-0.5">
-                  <StarIcon className="w-6 h-6" />
-                  <StarIcon className="w-6 h-6" />
                   <StarIcon className="w-6 h-6" />
                   <StarIcon className="w-6 h-6" />
                   <StarIcon className="w-6 h-6" />

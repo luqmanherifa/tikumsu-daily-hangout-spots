@@ -11,8 +11,9 @@ export default {
         rusticbrown: "#BC6C25", // Deep Warm Brown
       },
       fontFamily: {
-        heading: ["Archivo", "sans-serif"],
+        heading: ["Outfit", "sans-serif"],
         body: ["Questrial", "sans-serif"],
+        accent: ["Archivo", "sans-serif"],
       },
     },
   },

@@ -18,19 +18,19 @@ export default function HomeHero({ user, spots, loading }) {
             <div className="inline-block bg-softolive/10 border border-softolive/30 px-4 py-2 rounded-full mb-5">
               <p className="font-body text-sm font-semibold text-softolive tracking-wide flex items-center gap-2">
                 <MapIcon className="w-4 h-4" />
-                Direktori Spot Lokal
+                Panduan Spot Lokal
               </p>
             </div>
 
-            <h1 className="font-heading font-extrabold text-5xl text-deepolive mb-5 leading-tight tracking-tight max-sm:text-3xl">
-              Cari spot nongkrong?
+            <h1 className="font-heading font-bold text-5xl text-deepolive mb-5 leading-tight tracking-tight max-sm:text-3xl">
+              Nongkrong di mana?
               <br />
-              <span className="text-softolive">Ada semua di sini</span>
+              <span className="text-softolive">Temukan di sini</span>
             </h1>
 
-            <p className="font-body text-lg text-slate-600 mb-8 tracking-wide leading-relaxed max-w-xl max-sm:text-base">
-              Cari tempat ngopi, makan siang, atau kerja remote? Temukan
-              rekomendasi spot berdasarkan kebutuhan praktis kamu.
+            <p className="font-body text-lg text-slate-600 mb-8 tracking-wide leading-relaxed max-w-lg max-sm:text-base">
+              Butuh tempat ngopi, makan siang, atau kerja santai? Temukan spot
+              yang pas sesuai kebutuhanmu hari ini.
             </p>
 
             <div className="flex gap-6 mb-8 max-sm:gap-4">
@@ -83,7 +83,7 @@ export default function HomeHero({ user, spots, loading }) {
                   onClick={() => navigate("/login")}
                   className="inline-block border-2 border-slate-300 text-slate-700 font-body font-semibold text-base px-8 py-3.5 rounded-lg hover:border-softolive hover:text-softolive transition-colors tracking-wide text-center"
                 >
-                  Masuk untuk Kontribusi
+                  Masuk dan Berkontribusi
                 </button>
               )}
             </div>
