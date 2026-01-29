@@ -149,7 +149,7 @@ export default function AdminSubmissionTable({
                   <div className="flex items-center justify-center gap-1.5">
                     <button
                       onClick={() => onViewDetail(s)}
-                      className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded transition-all"
+                      className="p-1.5 text-blue-600 hover:text-white hover:bg-blue-600 rounded transition-all"
                       title="Lihat rincian"
                     >
                       <svg

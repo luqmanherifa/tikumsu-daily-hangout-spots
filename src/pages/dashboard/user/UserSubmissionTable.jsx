@@ -144,7 +144,7 @@ export default function UserSubmissionTable({
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={() => onViewDetail(s)}
-                        className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded transition-all"
+                        className="p-1.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-all"
                         title="Lihat rincian"
                       >
                         <svg

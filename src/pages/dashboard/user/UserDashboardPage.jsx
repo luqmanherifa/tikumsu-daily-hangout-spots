@@ -108,9 +108,10 @@ export default function UserDashboardPage() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
 
-  const loadSubmissions = async () => {
-    if (!auth.currentUser) {
+  const loadSubmissions = async (userId) => {
+    if (!userId) {
       setPageLoading(false);
       return;
     }
@@ -118,7 +119,7 @@ export default function UserDashboardPage() {
     setPageLoading(true);
 
     try {
-      const data = await fetchUserSubmissions(auth.currentUser.uid);
+      const data = await fetchUserSubmissions(userId);
       setSubmissions(data);
     } catch (err) {
       console.error("Error loading submissions:", err);
@@ -128,7 +129,16 @@ export default function UserDashboardPage() {
   };
 
   useEffect(() => {
-    loadSubmissions();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setAuthReady(true);
+      if (user) {
+        loadSubmissions(user.uid);
+      } else {
+        setPageLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleSubmit = async (formValues) => {
@@ -158,7 +168,7 @@ export default function UserDashboardPage() {
         auth.currentUser,
       );
 
-      await loadSubmissions();
+      await loadSubmissions(auth.currentUser.uid);
       setIsModalOpen(false);
       return true;
     } catch (err) {
@@ -176,7 +186,9 @@ export default function UserDashboardPage() {
     setDeleteLoading(true);
     try {
       await deleteSubmission(id);
-      await loadSubmissions();
+      if (auth.currentUser) {
+        await loadSubmissions(auth.currentUser.uid);
+      }
     } catch (err) {
       alert(err.message);
     } finally {
