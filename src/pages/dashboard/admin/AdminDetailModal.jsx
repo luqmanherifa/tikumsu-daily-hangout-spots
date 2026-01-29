@@ -107,7 +107,7 @@ export default function AdminDetailModal({
               />
               <InfoRow label="Lokasi" value={submission.location} fullWidth />
               <InfoRow
-                label="Disubmit oleh"
+                label="Diajukan oleh"
                 value={submission.createdByEmail}
                 fullWidth
               />
