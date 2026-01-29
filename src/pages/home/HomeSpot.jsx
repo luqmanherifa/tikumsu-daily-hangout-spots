@@ -103,8 +103,8 @@ export default function HomeSpot({
                     </div>
                   )}
                   {spot.biaya && (
-                    <div className="absolute top-2 right-2">
-                      <span className="bg-white/95 backdrop-blur-sm text-deepolive font-body text-xs font-semibold px-2.5 py-1 rounded-xl border border-slate-200 flex items-center gap-1">
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-white/70 backdrop-blur-sm text-deepolive font-body text-xs font-semibold px-2.5 py-1 rounded-xl  flex items-center gap-1">
                         <MoneyIcon className="w-3 h-3 text-green-600" />{" "}
                         {spot.biaya}
                       </span>

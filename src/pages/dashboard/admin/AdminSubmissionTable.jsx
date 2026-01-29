@@ -130,7 +130,7 @@ export default function AdminSubmissionTable({
                 </td>
                 <td className="px-4 py-3.5">{getStatusBadge(s.status)}</td>
                 <td className="px-4 py-3.5">
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-500 line-clamp-1">
                     {formatDate(s.createdAt)}
                   </span>
                 </td>
