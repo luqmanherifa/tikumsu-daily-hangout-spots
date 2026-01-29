@@ -42,7 +42,7 @@ export default function UserSubmissionTable({
 
   return (
     <div className="space-y-3">
-      <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -145,7 +145,7 @@ export default function UserSubmissionTable({
                       <button
                         onClick={() => onViewDetail(s)}
                         className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded transition-all"
-                        title="Lihat detail"
+                        title="Lihat rincian"
                       >
                         <svg
                           className="w-4 h-4"
@@ -172,7 +172,7 @@ export default function UserSubmissionTable({
                           onClick={() => onDelete(s.id)}
                           disabled={deleteLoading}
                           className="p-1.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                          title="Hapus submission"
+                          title="Hapus pengajuan"
                         >
                           <svg
                             className="w-4 h-4"
@@ -204,10 +204,10 @@ export default function UserSubmissionTable({
           <span className="font-semibold text-slate-700">
             {submissions.length}
           </span>{" "}
-          submission
+          pengajuan
         </p>
         <p className="text-xs text-slate-400">
-          Klik ikon mata untuk melihat detail lengkap
+          Klik ikon mata untuk melihat rincian lengkap
         </p>
       </div>
     </div>

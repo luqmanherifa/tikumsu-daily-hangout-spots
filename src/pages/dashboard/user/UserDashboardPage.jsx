@@ -114,6 +114,9 @@ export default function UserDashboardPage() {
       setPageLoading(false);
       return;
     }
+
+    setPageLoading(true);
+
     try {
       const data = await fetchUserSubmissions(auth.currentUser.uid);
       setSubmissions(data);
@@ -125,10 +128,7 @@ export default function UserDashboardPage() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      loadSubmissions();
-    }, 300);
-    return () => clearTimeout(timer);
+    loadSubmissions();
   }, []);
 
   const handleSubmit = async (formValues) => {
@@ -171,7 +171,7 @@ export default function UserDashboardPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("Yakin ingin menghapus submission ini?")) return;
+    if (!confirm("Yakin ingin menghapus pengajuan ini?")) return;
 
     setDeleteLoading(true);
     try {
