@@ -19,7 +19,7 @@ export default function FilterTabs({ filter, onFilterChange, stats }) {
             : "bg-white text-slate-600 border border-slate-300 hover:border-amber-500"
         }`}
       >
-        Pending ({stats.pending})
+        Menunggu ({stats.pending})
       </button>
       <button
         onClick={() => onFilterChange("approved")}

@@ -88,9 +88,14 @@ export default function AdminDashboardPage() {
 
   const loadSubmissions = async () => {
     setLoading(true);
-    const data = await fetchSpotSubmissions();
-    setSubmissions(data);
-    setLoading(false);
+    try {
+      const data = await fetchSpotSubmissions();
+      setSubmissions(data);
+    } catch (err) {
+      console.error("Error loading submissions:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -99,13 +104,13 @@ export default function AdminDashboardPage() {
 
   const handleApprove = async (submission) => {
     await approveSpotSubmission(submission);
-    alert("Spot telah disetujui");
+    alert("Spot berhasil disetujui");
     loadSubmissions();
   };
 
   const handleReject = async (id) => {
     await rejectSpotSubmission(id);
-    alert("Spot telah ditolak");
+    alert("Spot berhasil ditolak");
     loadSubmissions();
   };
 
@@ -121,19 +126,6 @@ export default function AdminDashboardPage() {
     rejected: submissions.filter((s) => s.status === "rejected").length,
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block w-10 h-10 border-3 border-softolive border-t-transparent rounded-full animate-spin mb-3"></div>
-          <p className="font-body text-sm text-slate-600 tracking-wide">
-            Memuat submissions...
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
@@ -143,11 +135,16 @@ export default function AdminDashboardPage() {
 
         <FilterTabs filter={filter} onFilterChange={setFilter} stats={stats} />
 
-        {filteredSubmissions.length === 0 && (
+        {loading ? (
+          <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
+            <div className="inline-block w-10 h-10 border-3 border-softolive border-t-transparent rounded-full animate-spin mb-3"></div>
+            <p className="font-body text-sm text-slate-600 tracking-wide">
+              Memuat data...
+            </p>
+          </div>
+        ) : filteredSubmissions.length === 0 ? (
           <AdminEmptyState filter={filter} />
-        )}
-
-        {filteredSubmissions.length > 0 && (
+        ) : (
           <>
             <AdminSubmissionTable
               submissions={filteredSubmissions}
@@ -159,7 +156,7 @@ export default function AdminDashboardPage() {
             <div className="text-center pt-4">
               <p className="font-body text-xs text-slate-500 tracking-wide">
                 Menampilkan {filteredSubmissions.length} dari {stats.total}{" "}
-                submission
+                pengajuan
               </p>
             </div>
           </>

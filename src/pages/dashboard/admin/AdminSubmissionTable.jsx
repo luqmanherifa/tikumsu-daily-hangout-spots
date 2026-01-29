@@ -40,7 +40,7 @@ export default function AdminSubmissionTable({
   };
 
   return (
-    <div className="hidden sm:block bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+    <div className="hidden sm:block bg-white rounded-lg border border-slate-200 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
@@ -150,7 +150,7 @@ export default function AdminSubmissionTable({
                     <button
                       onClick={() => onViewDetail(s)}
                       className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded transition-all"
-                      title="Lihat detail"
+                      title="Lihat rincian"
                     >
                       <svg
                         className="w-4 h-4"
@@ -180,7 +180,7 @@ export default function AdminSubmissionTable({
                           ? "text-slate-400 bg-slate-50 cursor-not-allowed"
                           : "text-emerald-600 hover:text-white hover:bg-emerald-600"
                       }`}
-                      title="Setujui submission"
+                      title="Setujui pengajuan"
                     >
                       <svg
                         className="w-4 h-4"
@@ -204,7 +204,7 @@ export default function AdminSubmissionTable({
                           ? "text-slate-400 bg-slate-50 cursor-not-allowed"
                           : "text-rose-600 hover:text-white hover:bg-rose-600"
                       }`}
-                      title="Tolak submission"
+                      title="Tolak pengajuan"
                     >
                       <svg
                         className="w-4 h-4"

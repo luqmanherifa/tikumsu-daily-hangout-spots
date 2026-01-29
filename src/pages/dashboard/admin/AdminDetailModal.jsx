@@ -55,11 +55,11 @@ export default function AdminDetailModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-xl border border-slate-200">
+      <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50/50">
           <div className="flex items-center gap-3">
             <h2 className="text-lg font-semibold text-slate-900">
-              Detail Submission
+              Rincian Pengajuan
             </h2>
             {getStatusBadge(submission.status)}
           </div>
@@ -172,7 +172,7 @@ export default function AdminDetailModal({
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                Setujui Submission
+                Setujui Pengajuan
               </button>
               <button
                 onClick={() => {
@@ -194,7 +194,7 @@ export default function AdminDetailModal({
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-                Tolak Submission
+                Tolak Pengajuan
               </button>
             </div>
           )}
@@ -215,7 +215,7 @@ export default function AdminDetailModal({
                 />
               </svg>
               <span className="text-sm text-emerald-700 font-medium">
-                Submission ini sudah disetujui
+                Pengajuan ini sudah disetujui
               </span>
             </div>
           )}
@@ -236,7 +236,7 @@ export default function AdminDetailModal({
                 />
               </svg>
               <span className="text-sm text-rose-700 font-medium">
-                Submission ini sudah ditolak
+                Pengajuan ini sudah ditolak
               </span>
             </div>
           )}

@@ -11,7 +11,7 @@ export default function StatsCards({ stats }) {
       </div>
       <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-4">
         <p className="font-body text-xs text-amber-800 mb-1 tracking-wide">
-          Pending
+          Menunggu
         </p>
         <p className="font-heading font-bold text-2xl text-amber-700 tracking-tight">
           {stats.pending}
