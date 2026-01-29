@@ -8,8 +8,7 @@ import AdminHeader from "./AdminHeader";
 import StatsCards from "./StatsCards";
 import FilterTabs from "./FilterTabs";
 import AdminEmptyState from "./AdminEmptyState.jsx";
-import SubmissionTableDesktop from "./SubmissionTableDesktop";
-import SubmissionListMobile from "./SubmissionListMobile";
+import AdminSubmissionTable from "./AdminSubmissionTable";
 import AdminDetailModal from "./AdminDetailModal";
 
 const FORM_CONFIG = [
@@ -150,14 +149,7 @@ export default function AdminDashboardPage() {
 
         {filteredSubmissions.length > 0 && (
           <>
-            <SubmissionTableDesktop
-              submissions={filteredSubmissions}
-              onViewDetail={setDetailModal}
-              onApprove={handleApprove}
-              onReject={handleReject}
-            />
-
-            <SubmissionListMobile
+            <AdminSubmissionTable
               submissions={filteredSubmissions}
               onViewDetail={setDetailModal}
               onApprove={handleApprove}
