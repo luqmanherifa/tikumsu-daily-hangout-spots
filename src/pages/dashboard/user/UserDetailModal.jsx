@@ -1,4 +1,4 @@
-export default function DetailModal({ submission, onClose, formConfig }) {
+export default function UserDetailModal({ submission, onClose, formConfig }) {
   if (!submission) return null;
 
   return (

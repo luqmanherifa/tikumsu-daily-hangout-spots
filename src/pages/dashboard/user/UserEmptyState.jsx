@@ -1,4 +1,4 @@
-export default function EmptyState({ onAddSpot, isLoading = false }) {
+export default function UserEmptyState({ onAddSpot, isLoading = false }) {
   if (isLoading) {
     return (
       <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">

@@ -6,11 +6,11 @@ import {
   deleteSubmission,
 } from "../../../services/submissionService.js";
 import { uploadImage } from "../../../services/cloudinaryService.js";
-import DashboardHeader from "./DashboardHeader";
-import EmptyState from "./EmptyState";
+import UserHeader from "./UserHeader.jsx";
+import UserEmptyState from "./UserEmptyState.jsx";
 import SubmissionTable from "./SubmissionTable";
 import AddSpotModal from "./AddSpotModal.jsx";
-import DetailModal from "./DetailModal";
+import UserDetailModal from "./UserDetailModal.jsx";
 
 const FORM_CONFIG = [
   {
@@ -191,12 +191,12 @@ export default function UserDashboardPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-6 py-10 max-sm:px-4 max-sm:py-6">
-        <DashboardHeader onAddSpot={() => setIsModalOpen(true)} />
+        <UserHeader onAddSpot={() => setIsModalOpen(true)} />
 
         {pageLoading ? (
-          <EmptyState isLoading={true} />
+          <UserEmptyState isLoading={true} />
         ) : submissions.length === 0 ? (
-          <EmptyState onAddSpot={() => setIsModalOpen(true)} />
+          <UserEmptyState onAddSpot={() => setIsModalOpen(true)} />
         ) : (
           <SubmissionTable
             submissions={submissions}
@@ -217,7 +217,7 @@ export default function UserDashboardPage() {
         uploadingImage={uploadingImage}
       />
 
-      <DetailModal
+      <UserDetailModal
         submission={detailModal}
         onClose={() => setDetailModal(null)}
         formConfig={FORM_CONFIG}

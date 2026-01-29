@@ -1,4 +1,4 @@
-export default function DashboardHeader({ onAddSpot }) {
+export default function UserHeader({ onAddSpot }) {
   return (
     <div className="flex justify-between items-center mb-8 max-sm:flex-col max-sm:items-start max-sm:gap-4">
       <div>
