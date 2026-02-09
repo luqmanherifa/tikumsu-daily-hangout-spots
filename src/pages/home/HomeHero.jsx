@@ -80,7 +80,7 @@ export default function HomeHero({ user, spots, loading }) {
                 </button>
               ) : (
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/masuk")}
                   className="inline-block border-2 border-slate-300 text-slate-700 font-body font-semibold text-base px-8 py-3.5 rounded-lg hover:border-softolive hover:text-softolive transition-colors tracking-wide text-center"
                 >
                   Masuk dan Berkontribusi

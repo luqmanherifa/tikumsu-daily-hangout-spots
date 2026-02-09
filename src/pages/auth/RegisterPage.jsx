@@ -18,7 +18,7 @@ const RegisterPage = () => {
     const { user, error } = await registerWithEmail(email, password);
 
     if (error) {
-      setErrorMsg(error.message || "Register gagal");
+      setErrorMsg(error.message || "Daftar gagal");
       setLoading(false);
       return;
     }
@@ -107,7 +107,7 @@ const RegisterPage = () => {
 
             <button
               type="button"
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/masuk")}
               className="w-full border border-slate-300 text-slate-700 font-body font-semibold text-sm px-6 py-3 rounded-lg hover:border-softolive hover:text-softolive transition-colors tracking-wide"
             >
               Sudah punya akun? Masuk

@@ -8,7 +8,7 @@ export default function ProtectedRoute({ children }) {
     return children;
   }
 
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/masuk" replace />;
 
   return children;
 }

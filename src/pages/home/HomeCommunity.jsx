@@ -37,13 +37,13 @@ export default function HomeCommunity({ user, spots, loading }) {
             ) : (
               <>
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/masuk")}
                   className="bg-white text-deepolive font-body font-bold text-base px-8 py-4 rounded-lg hover:bg-slate-100 transition-colors tracking-wide w-full sm:w-auto"
                 >
                   Masuk dan Berkontribusi
                 </button>
                 <button
-                  onClick={() => navigate("/register")}
+                  onClick={() => navigate("/daftar")}
                   className="border-2 border-white text-white font-body font-bold text-base px-8 py-4 rounded-lg hover:bg-white/10 transition-colors tracking-wide w-full sm:w-auto"
                 >
                   Daftar Sekarang

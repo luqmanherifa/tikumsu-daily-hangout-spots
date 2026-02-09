@@ -110,7 +110,7 @@ export default function LoginPage() {
 
             <button
               type="button"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/daftar")}
               className="w-full border border-slate-300 text-slate-700 font-body font-semibold text-sm px-6 py-3 rounded-lg hover:border-softolive hover:text-softolive transition-colors tracking-wide"
             >
               Buat akun baru

@@ -21,7 +21,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await signOut(auth);
-    navigate("/login");
+    navigate("/masuk");
   };
 
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function Navbar() {
 
           {!loading && !user ? (
             <Link
-              to="/login"
+              to="/masuk"
               className="bg-softolive text-white font-body font-semibold text-sm px-4 py-1.5 rounded-md hover:bg-deepolive tracking-wide max-sm:px-3 max-sm:py-1 max-sm:text-xs flex items-center gap-1.5"
             >
               <LoginIcon className="w-3.5 h-3.5 max-sm:w-3 max-sm:h-3" />
