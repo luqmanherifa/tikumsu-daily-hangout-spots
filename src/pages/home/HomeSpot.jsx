@@ -169,7 +169,7 @@ export default function HomeSpot({
                         </span>
                       </div>
                       <div className="flex flex-wrap gap-1">
-                        {spot.kebutuhan.slice(0, 2).map((item) => (
+                        {spot.kebutuhan.slice(0, 3).map((item) => (
                           <span
                             key={item}
                             className="font-body text-xs bg-slate-50 text-slate-700 px-2 py-0.5 rounded font-medium tracking-wide border border-slate-200"
@@ -177,9 +177,9 @@ export default function HomeSpot({
                             {item}
                           </span>
                         ))}
-                        {spot.kebutuhan.length > 2 && (
+                        {spot.kebutuhan.length > 3 && (
                           <span className="font-body text-xs text-slate-500 font-medium">
-                            +{spot.kebutuhan.length - 2}
+                            +{spot.kebutuhan.length - 3}
                           </span>
                         )}
                       </div>
@@ -191,9 +191,9 @@ export default function HomeSpot({
                       <div className="flex items-center gap-1">
                         <ClockIcon className="w-3 h-3 text-slate-400 flex-shrink-0" />
                         <span className="text-slate-500">
-                          {spot.waktu.slice(0, 2).join(", ")}
-                          {spot.waktu.length > 2 &&
-                            ` +${spot.waktu.length - 2}`}
+                          {spot.waktu.slice(0, 4).join(", ")}
+                          {spot.waktu.length > 4 &&
+                            ` +${spot.waktu.length - 4}`}
                         </span>
                       </div>
                     )}
@@ -201,9 +201,9 @@ export default function HomeSpot({
                       <div className="flex items-center gap-1">
                         <UserGroupIcon className="w-3 h-3 text-slate-400 flex-shrink-0" />
                         <span className="text-slate-500">
-                          {spot.tipeKunjungan.slice(0, 2).join(", ")}
-                          {spot.tipeKunjungan.length > 2 &&
-                            ` +${spot.tipeKunjungan.length - 2}`}
+                          {spot.tipeKunjungan.slice(0, 3).join(", ")}
+                          {spot.tipeKunjungan.length > 3 &&
+                            ` +${spot.tipeKunjungan.length - 3}`}
                         </span>
                       </div>
                     )}

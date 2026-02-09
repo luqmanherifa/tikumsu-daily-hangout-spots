@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import ScrollToTop from "./components/ScrollToTop";
 
 import HomePage from "./pages/home/HomePage";
 import SpotDetailPage from "./pages/spot/SpotDetailPage";
@@ -15,13 +16,14 @@ import AdminRoute from "./routes/AdminRoute";
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/spot/:id" element={<SpotDetailPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/masuk" element={<LoginPage />} />
+        <Route path="/daftar" element={<RegisterPage />} />
 
         <Route
           path="/dashboard"
