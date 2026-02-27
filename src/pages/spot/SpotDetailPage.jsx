@@ -43,6 +43,9 @@ export default function SpotDetailPage() {
   const handleImageError = (e) => {
     e.target.src = "/tikumsu.png";
     e.target.onerror = null;
+    e.target.style.objectFit = "contain";
+    e.target.style.padding = "24px";
+    e.target.style.background = "#f1f5f9";
   };
 
   useEffect(() => {
@@ -95,7 +98,7 @@ export default function SpotDetailPage() {
             onClick={() => navigate("/")}
             className="bg-softolive text-white font-body font-semibold text-sm px-6 py-2.5 rounded-lg hover:bg-deepolive transition-colors tracking-wide"
           >
-            Kembali ke Home
+            Kembali ke Beranda
           </button>
         </div>
       </div>
@@ -111,7 +114,7 @@ export default function SpotDetailPage() {
             className="text-slate-700 font-body font-medium text-sm hover:text-softolive transition-colors tracking-wide flex items-center gap-2"
           >
             <ArrowLeftIcon className="w-4 h-4" />
-            Kembali ke Home
+            Kembali ke Beranda
           </button>
         </div>
       </div>

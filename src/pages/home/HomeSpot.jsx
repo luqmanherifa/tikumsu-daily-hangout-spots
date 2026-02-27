@@ -36,6 +36,9 @@ export default function HomeSpot({
   const handleImageError = (e) => {
     e.target.src = "/tikumsu.png";
     e.target.onerror = null;
+    e.target.style.objectFit = "contain";
+    e.target.style.padding = "16px";
+    e.target.style.background = "#f1f5f9";
   };
 
   return (
