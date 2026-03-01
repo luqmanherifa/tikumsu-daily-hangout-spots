@@ -92,7 +92,7 @@ export default function SpotDetailPage() {
             Spot tidak ditemukan
           </h1>
           <p className="font-body text-sm text-slate-600 tracking-wide mb-6">
-            Spot yang kamu cari tidak ada atau belum disetujui
+            Spot yang kamu cari tidak ada
           </p>
           <button
             onClick={() => navigate("/")}
